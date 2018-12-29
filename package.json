@@ -1,0 +1,45 @@
+{
+  "name": "@zhuiyi/recorder",
+  "version": "0.0.1",
+  "description": "Recorder 提供录音常用的各种功能，转采样率、位深、获取wav文件和pcm数据流",
+  "private": false,
+  "homepage": "https://github.com/chris-rudmin/opus-recorder",
+  "author": "Singlemai",
+  "keywords": [
+    "PCM",
+    "Decoder",
+    "Resampler",
+    "Streamer",
+    "Audio",
+    "Microphone",
+    "Recorder",
+    "Wav",
+    "Wave",
+    "WebAssembly"
+  ],
+  "license": "MIT",
+  "main": "dist/recorder.min.js",
+  "files": [
+    "dist/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/chris-rudmin/opus-recorder.git"
+  },
+  "scripts": {
+    "make": "make",
+    "test": "make test",
+    "webpack": "webpack"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.0.0",
+    "promise": "^8.0.2",
+    "require-uncached": "^2.0.0",
+    "sinon": "^7.2.0",
+    "sinon-chai": "^3.3.0",
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {}
+}
