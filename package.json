@@ -18,28 +18,17 @@
     "WebAssembly"
   ],
   "license": "MIT",
-  "main": "dist/recorder.min.js",
+  "main": "src/recorder.js",
   "files": [
-    "dist/"
+    "src/"
   ],
   "repository": {
     "type": "git",
     "url": "git://github.com/chris-rudmin/opus-recorder.git"
   },
   "scripts": {
-    "make": "make",
-    "test": "make test",
-    "webpack": "webpack"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^5.0.0",
-    "promise": "^8.0.2",
-    "require-uncached": "^2.0.0",
-    "sinon": "^7.2.0",
-    "sinon-chai": "^3.3.0",
-    "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2"
   },
   "dependencies": {}
 }
