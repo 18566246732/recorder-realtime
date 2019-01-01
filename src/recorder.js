@@ -1,8 +1,9 @@
 'use strict';
 
+// 兼容性写法
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 
-// Constructor
+// Recoder的构造函数
 const Recorder = function(config) {
   if (!Recorder.isRecordingSupported()) {
     throw new Error('Recording is not supported in this browser');
@@ -34,10 +35,10 @@ const Recorder = function(config) {
   );
 
   this.initWorker();
-  // this.start(); 自动开启，但是会被chrome阻止 最好不要开启
 };
 
-// Static Methods
+// 静态方法
+// 检查浏览器是否支持使用录音功能
 Recorder.isRecordingSupported = function() {
   return (
     AudioContext && window.navigator && window.navigator.mediaDevices && window.navigator.mediaDevices.getUserMedia && window.WebAssembly

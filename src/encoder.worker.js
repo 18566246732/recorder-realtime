@@ -1,3 +1,7 @@
+/**
+ * 用来实现音频流转采样率以及位深的worker方法。
+ * TODO: 暂时来说采样率的转写只支持由高转低。不支持由低转高
+ */
 (function() {
   'use strict';
   let recorder;
