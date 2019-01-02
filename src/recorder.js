@@ -2,6 +2,7 @@
 
 // 兼容性写法
 const AudioContext = window.AudioContext || window.webkitAudioContext;
+const WavWorker = require('worker-loader!./encoder.worker.js');
 
 // Recoder的构造函数
 const Recorder = function(config) {
@@ -15,12 +16,12 @@ const Recorder = function(config) {
       bufferLength: 4096, // 每一段buffer的大小
       encoderApplication: 2049,
       encoderFrameSize: 20,
-      encoderPath: './encoderWorker.js', // worker文件的存储位置
+      // encoderPath: './encoder.worker.js', // worker文件的存储位置
       encoderSampleRate: 48000, // 目标采样率
       leaveStreamOpen: false,
       maxBuffersPerPage: 40,
       mediaTrackConstraints: true,
-      monitorGain: 0, // 创造回声
+      monitorGain: -1, // 创造回声, 这里注意要把值设置为-1才是无声的状态
       numberOfChannels: 1, // 声道数
       positionX: 0,
       positionY: 0,
@@ -119,7 +120,6 @@ Recorder.prototype.initAudioGraph = function() {
   this.filterNode.type = 'lowshelf';
   this.setFrequency(this.config.recorderFrequency);
 
-  this.monitorGainNode.connect(this.audioContext.destination); // 暂时输出到扬声器来看效果
   // 3D环绕效果
   this.pannerNode = this.audioContext.createPanner();
   this.setPosition(this.config.positionX, this.config.positionY, this.config.positionZ);
@@ -158,7 +158,7 @@ Recorder.prototype.initWorker = function() {
 
   this.recordedPages = [];
   this.totalLength = 0;
-  this.encoder = new window.Worker(this.config.encoderPath);
+  this.encoder = new WavWorker();
   this.encoder.addEventListener('message', this.config.streamPages ? streamPage : storePage);
 };
 
