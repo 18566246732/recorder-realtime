@@ -6,5 +6,14 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'recorder.js' // 输出的文件名
   },
-  mode: 'development'
+  mode: 'development',
+  module: {
+    rules: [
+      {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loader: 'babel-loader'
+      }
+    ]
+  }
 };

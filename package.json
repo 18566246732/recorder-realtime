@@ -1,6 +1,6 @@
 {
   "name": "@zhuiyi/recorder",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Recorder 提供录音常用的各种功能，转采样率、位深、获取wav文件和pcm数据流",
   "private": false,
   "homepage": "https://webgit.wezhuiyi.com/singlemai/Recorder",
@@ -30,9 +30,15 @@
     "webpack": "webpack"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.1.2",
     "worker-loader": "^2.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "babel-loader": "^7.1.5"
+  }
 }
