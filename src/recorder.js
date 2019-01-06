@@ -2,7 +2,7 @@
 
 // 兼容性写法
 const AudioContext = window.AudioContext || window.webkitAudioContext;
-const WavWorker = require('worker-loader!./encoder.worker.js');
+const WavWorker = require('./encoder.worker.js');
 
 // Recoder的构造函数
 const Recorder = function(config) {
