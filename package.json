@@ -1,6 +1,6 @@
 {
   "name": "@zhuiyi/recorder",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Recorder 提供录音常用的各种功能，转采样率、位深、获取wav文件和pcm数据流",
   "private": false,
   "homepage": "https://webgit.wezhuiyi.com/singlemai/Recorder",
