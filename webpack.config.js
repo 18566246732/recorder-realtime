@@ -4,7 +4,7 @@ module.exports = {
   entry: './src/recorder.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'umd',
+    libraryTarget: 'commonjs2',
     filename: 'recorder.js' // 输出的文件名
   },
   mode: 'development',
