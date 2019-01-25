@@ -21,20 +21,15 @@ const Recorder = function(config) {
       leaveStreamOpen: false,
       maxBuffersPerPage: 40,
       mediaTrackConstraints: true,
-      monitorGain: -1, // 创造回声, 这里注意要把值设置为-1才是无声的状态
+      monitorGain: 0, // 创造回声, 这里注意要把值设置为-1才是无声的状态
       numberOfChannels: 1, // 声道数
-      positionX: 0,
-      positionY: 0,
-      positionZ: 0,
       recordingGain: 1, // 录音的大小
       resampleQuality: 3,
       streamPages: false,
       wavBitDepth: 16, // 位深
-      recorderFrequency: 1 // 录制音频的频率
     },
     config
   );
-
   this.initWorker();
 };
 
@@ -45,7 +40,6 @@ Recorder.isRecordingSupported = function() {
     AudioContext && window.navigator && window.navigator.mediaDevices && window.navigator.mediaDevices.getUserMedia && window.WebAssembly
   );
 };
-
 // Instance Methods
 Recorder.prototype.clearStream = function() {
   if (this.stream) {
@@ -91,7 +85,6 @@ Recorder.prototype.initAudioContext = function(sourceNode) {
 
   return this.audioContext;
 };
-
 Recorder.prototype.initAudioGraph = function() {
   const self = this;
 
@@ -113,23 +106,10 @@ Recorder.prototype.initAudioGraph = function() {
   this.monitorGainNode = this.audioContext.createGain();
   this.setMonitorGain(this.config.monitorGain);
   this.monitorGainNode.connect(this.audioContext.destination);
-
-  // 录音音调
-  this.filterNode = this.audioContext.createBiquadFilter();
-  // - type
-  this.filterNode.type = 'lowshelf';
-  this.setFrequency(this.config.recorderFrequency);
-
-  // 3D环绕效果
-  this.pannerNode = this.audioContext.createPanner();
-  this.setPosition(this.config.positionX, this.config.positionY, this.config.positionZ);
-  this.pannerNode.connect(this.audioContext.destination);
-
   this.recordingGainNode = this.audioContext.createGain();
   this.setRecordingGain(this.config.recordingGain);
   this.recordingGainNode.connect(this.scriptProcessorNode);
 };
-
 Recorder.prototype.initSourceNode = function(sourceNode) {
   const self = this;
 
@@ -190,28 +170,7 @@ Recorder.prototype.setMonitorGain = function(gain) {
   if (this.monitorGainNode && this.audioContext) {
     this.monitorGainNode.gain.setTargetAtTime(gain, this.audioContext.currentTime, 0.01);
   }
-};
-
-// 扩展改变录音音调的方法
-Recorder.prototype.setFrequency = function(frequency) {
-  this.config.filterNode = frequency;
-
-  if (this.filterNode && this.audioContext) {
-    this.filterNode.frequency.value = frequency;
-  }
-};
-
-// 3D环绕效果
-Recorder.prototype.setPosition = function(x, y, z) {
-  this.config.positionX = x;
-  this.config.positionY = y;
-  this.config.positionZ = z;
-
-  if (this.pannerNode && this.audioContext) {
-    this.pannerNode.setPosition(x, y, z);
-  }
-};
-
+}
 Recorder.prototype.start = function(sourceNode) {
   if (this.state === 'inactive') {
     const self = this;
@@ -234,13 +193,10 @@ Recorder.prototype.start = function(sourceNode) {
       self.sourceNode = sourceNode;
       self.sourceNode.connect(self.monitorGainNode);
       self.sourceNode.connect(self.recordingGainNode);
-      self.sourceNode.connect(self.filterNode); // 挂载音频频率的修改器
-      self.sourceNode.connect(self.pannerNode); // 挂载3d
       self.onstart(); // 自动开始
     });
   }
 };
-
 Recorder.prototype.stop = function() {
   if (this.state !== 'inactive') {
     this.state = 'inactive';
