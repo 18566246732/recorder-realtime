@@ -2,6 +2,8 @@
  * 用来实现音频流转采样率以及位深的worker方法。
  * TODO: 暂时来说采样率的转写只支持由高转低。不支持由低转高
  */
+import lamejs from "lamejs";
+
 (function() {
   'use strict';
   let recorder;
@@ -49,7 +51,9 @@
     this.sampleRate = config.wavSampleRate;
     this.originalSampleRate = config.originalSampleRate;
     this.recordedBuffers = [];
+    this.format = config.format;
     this.bytesPerSample = this.bitDepth / 8;
+    this.mp3Encoder = new lamejs.Mp3Encoder(config.numberOfChannels, config.wavSampleRate, config.bitDepth);
   };
 
   WavePCM.prototype.interleave = function(e) {
@@ -115,7 +119,7 @@
       }
     }
 
-    self.postMessage({ command: 'buffer', buffer: reducedData });
+    self.postMessage({ command: 'buffer', buffer: this.format === 'mp3' ?  res : reducedData });
     this.recordedBuffers.push(reducedData);
   };
 

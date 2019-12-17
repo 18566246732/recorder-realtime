@@ -25,6 +25,7 @@ const Recorder = function(config) {
       numberOfChannels: 1, // 声道数
       recordingGain: 1, // 录音的大小
       resampleQuality: 3,
+      format: 'pcm', // 默认格式
       streamPages: false,
       wavBitDepth: 16, // 位深
     },
