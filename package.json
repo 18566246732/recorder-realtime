@@ -1,10 +1,9 @@
 {
-  "name": "@zhuiyi/recorder",
+  "name": "recorder-realtime",
   "version": "0.0.6",
-  "description": "Recorder 提供录音常用的各种功能，转采样率、位深、获取wav文件和pcm数据流",
+  "description": "a realtime audio recorder that can generate pcm or mp3 with configurable sample rate and bit depth",
   "private": false,
-  "homepage": "https://webgit.wezhuiyi.com/singlemai/Recorder",
-  "author": "Singlemai",
+  "author": "ivan liu",
   "keywords": [
     "PCM",
     "Decoder",
@@ -14,6 +13,7 @@
     "Microphone",
     "Recorder",
     "Wav",
+    "mp3",
     "Wave",
     "WebAssembly"
   ],
@@ -24,7 +24,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@webgit.wezhuiyi.com:singlemai/Recorder.git"
+    "url": "git+https://github.com/18566246732/recorder-realtime.git"
   },
   "scripts": {
     "webpack": "webpack"

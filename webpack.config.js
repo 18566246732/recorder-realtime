@@ -5,7 +5,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     libraryTarget: 'commonjs2',
-    filename: 'recorder.js' // 输出的文件名
+    filename: 'recorder.js'
   },
   mode: 'development',
   module: {
