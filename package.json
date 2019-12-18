@@ -1,6 +1,6 @@
 {
   "name": "recorder-realtime",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "description": "a realtime audio recorder that can generate pcm or mp3 with configurable sample rate and bit depth",
   "private": false,
   "author": "ivan liu",
