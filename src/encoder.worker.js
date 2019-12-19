@@ -119,7 +119,7 @@ import lamejs from "lamejs";
       }
     }
 
-    self.postMessage({ command: 'buffer', buffer: this.format === 'mp3' ?  res : reducedData });
+    self.postMessage({ command: 'buffer', buffer: this.format === 'mp3' ?  this.mp3Encoder.encodeBuffer(reducedData) : reducedData });
     this.recordedBuffers.push(reducedData);
   };
 
