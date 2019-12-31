@@ -119,7 +119,9 @@ import lamejs from "lamejs";
       }
     }
 
-    self.postMessage({ command: 'buffer', buffer: this.format === 'mp3' ?  this.mp3Encoder.encodeBuffer(reducedData) : reducedData });
+    const data = this.format === 'mp3' ?  this.mp3Encoder.encodeBuffer(reducedData) : reducedData;
+
+    self.postMessage({ command: 'buffer', buffer: data});
     this.recordedBuffers.push(reducedData);
   };
 
@@ -148,7 +150,7 @@ import lamejs from "lamejs";
       wav.set(this.recordedBuffers[i], i * bufferLength + headerLength);
     }
 
-    self.postMessage({ command: 'wav', data: wav.buffer });
+    self.postMessage({ command: 'done', data: wav.buffer });
     self.postMessage(null);
     self.close();
   };

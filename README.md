@@ -29,10 +29,13 @@ function initRecorder() {
     recorder.onstreamerror = e => {
       this.screenLogger('Error encountered: ' + e.message)
     }
-    recorder.ondataavailable = data => {
+    this.recorder.ondataavailable = data => {
       if (data.command === 'buffer') {
-        // data.buffer has the length of bufferLength
-        this.sendToServer(data.buffer);
+        this.sendBlogToServer(data.buffer); // 片段数据，bufferLength的大小
+      } else if (data.command === 'wav') {
+        const dataBlob = new Blob([typedArray], { type: 'audio/wav' })
+        const url = URL.createObjectURL(dataBlob)
+        this.audioSrc = url
       }
     }
     recorder.start();
